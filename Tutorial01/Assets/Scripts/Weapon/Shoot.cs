@@ -20,8 +20,24 @@ public class Shoot : MonoBehaviour
         //Input.GetKeyDown(KeyCode.)
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject newBullet;
-            newBullet = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
+            if (Time.time > shotReateTime)
+            {
+                GameObject newBullet;
+                newBullet = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
+                //Toma la bala que hemos instanciado comprueba que tenemos Rigidbody y le damos fuerza
+                //Le damos un vector hacia adelante desde nuestro punto spawnPoint
+                //Y lo multiplicamos por nuestra fuerza.
+                newBullet.GetComponent<Rigidbody>().AddForce(spawnPoint.forward * shotForce);
+
+                shotReateTime = Time.time + shotRate;
+
+
+                /*
+                 Para destruir las balas
+                 */
+                Destroy(newBullet, 5);
+
+            }
         }
         
     }
