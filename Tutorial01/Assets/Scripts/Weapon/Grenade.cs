@@ -15,6 +15,8 @@ public class Grenade : MonoBehaviour
 
     bool exploded = false;
 
+    public GameObject explosionEffect;
+
 
 
     // Start is called before the first frame update
@@ -37,9 +39,12 @@ public class Grenade : MonoBehaviour
 
     void Exploded()
     {
+        //Instanciamos una particula
+        Instantiate(explosionEffect, transform.position, transform.rotation);
+
         //Guardamos todos losobjetos dentro de un array
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-        
+
         /*
          * Por cada objeto del array vamos a seleccionar su RigidBody si no es nulo le 
          * agregamos una fuerza de explosión.
